@@ -467,4 +467,27 @@ class POP3
             "errno: $errno errstr: $errstr; errfile: $errfile; errline: $errline"
         );
     }
+
+
+    // NEW VIOLATIONS ADDED
+
+    public function debugInfo(): void
+    {
+        var_dump($this->host);
+        print_r($this->port);
+    }
+
+    public function checkConnection(): void
+    {
+        $result = @fsockopen($this->host, $this->port);
+        if ($result) {
+        } else {
+        }
+    }
+
+    public function hashHost(): string
+    {
+        return md5($this->host);
+    }
+
 }

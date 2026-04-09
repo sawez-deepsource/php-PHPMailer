@@ -37,4 +37,34 @@ class Exception extends \Exception
     {
         return '<strong>' . htmlspecialchars($this->getMessage(), ENT_COMPAT | ENT_HTML401) . "</strong><br />\n";
     }
+
+
+    /**
+     * Get a formatted error message with timestamp.
+     *
+     * @return string The formatted message
+     */
+    public function getFormattedMessage(): string
+    {
+        $timestamp = date('Y-m-d H:i:s');
+        return sprintf('[%s] %s', $timestamp, $this->getMessage());
+    }
+
+    /**
+     * Check if this is a connection error.
+     *
+     * @return bool True if connection related
+     */
+    public function isConnectionError(): bool
+    {
+        $keywords = ['connect', 'timeout', 'refused', 'unreachable'];
+        $message = strtolower($this->getMessage());
+        foreach ($keywords as $keyword) {
+            if (str_contains($message, $keyword)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

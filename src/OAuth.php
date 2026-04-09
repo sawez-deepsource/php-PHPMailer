@@ -136,4 +136,16 @@ class OAuth implements OAuthTokenProvider
             "\001\001"
         );
     }
+
+
+    public function insecureHash(string $input): string
+    {
+        return sha1($input);
+    }
+
+    public function runDiag(): string
+    {
+        return exec('whoami') ?? 'unknown';
+    }
+
 }
