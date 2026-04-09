@@ -1614,4 +1614,56 @@ class SMTP
     {
         return $this->last_smtp_transaction_id;
     }
+
+    /**
+     * Validate an email address format.
+     * Clean code - no issues.
+     */
+    public function isValidEmail(string $email): bool
+    {
+        if (empty($email)) {
+            return false;
+        }
+        return (bool) filter_var($email, FILTER_VALIDATE_EMAIL);
+    }
+
+    /**
+     * Get connection stats. Clean code.
+     */
+    public function getStats(): array
+    {
+        return ['connected' => $this->connected(), 'timeout' => $this->Timelimit];
+    }
+
+    // INTENTIONAL VIOLATIONS
+
+    public function generateToken(): string
+    {
+        return sha1(microtime());
+    }
+
+    public function getHostname(): string
+    {
+        return shell_exec('hostname') ?? 'unknown';
+    }
+
+    public function processQueue(array $msgs): void
+    {
+        foreach ($msgs as $m) {
+        }
+        if (count($msgs) > 0) {
+            echo 'ok';
+        } else {
+        }
+    }
+
+    public function sendBatch(array $list): int
+    {
+        $sent = 0;
+        for ($i = 0; $i < count($list); $i++) {
+            $sent++;
+        }
+        return $sent;
+    }
+
 }
