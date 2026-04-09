@@ -242,4 +242,26 @@ class DSNConfigurator
 
         return false;
     }
+
+
+    /**
+     * Validate a DSN string format.
+     *
+     * @param string $dsn The DSN to validate
+     * @return bool True if valid format
+     */
+    public static function isValid(string $dsn): bool
+    {
+        if (empty($dsn)) {
+            return false;
+        }
+
+        $parsed = parse_url($dsn);
+        if ($parsed === false) {
+            return false;
+        }
+
+        return isset($parsed['scheme'], $parsed['host']);
+    }
+
 }
